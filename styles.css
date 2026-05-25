@@ -445,6 +445,103 @@ button:hover {
   white-space: nowrap;
 }
 
+/* ── STATS GRID (dashboard) ──────────────────────────── */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stat-card {
+  background: var(--c-surface);
+  border-radius: var(--radius-md);
+  padding: 20px 16px;
+  border: 1px solid var(--c-border);
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.stat-number {
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: var(--c-black);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* ── BADGE ───────────────────────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.badge-solid {
+  background: var(--c-black);
+  color: var(--c-volt);
+}
+
+.badge-outline {
+  background: rgba(26, 107, 255, 0.1);
+  color: var(--c-volt);
+}
+
+/* ── PROGRESS BAR ────────────────────────────────────── */
+
+.bar-track {
+  height: 5px;
+  background: var(--c-border);
+  border-radius: var(--radius-pill);
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--c-black);
+  border-radius: var(--radius-pill);
+  transition: width 0.5s ease;
+}
+
+/* ── DASH HELPERS ────────────────────────────────────── */
+
+.dash-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.dash-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
 /* ── RESPONSIVE ──────────────────────────────────────── */
 
 @media (max-width: 640px) {
@@ -465,5 +562,8 @@ button:hover {
   }
   .app {
     padding: 20px 16px 40px;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

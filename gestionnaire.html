@@ -23,17 +23,59 @@
 
       <header class="page-header">
         <h1>Tableau de bord</h1>
-        <p>Gestion des cours · chat running · events</p>
+        <p>Vue d'ensemble · cours · events</p>
       </header>
 
       <nav class="tabs" role="tablist" aria-label="Navigation principale">
-        <button class="tab active" data-tab="cours" role="tab" aria-selected="true">Cours</button>
+        <button class="tab active" data-tab="dashboard" role="tab" aria-selected="true">Dashboard</button>
+        <button class="tab" data-tab="cours" role="tab" aria-selected="false">Cours</button>
         <button class="tab" data-tab="chat" role="tab" aria-selected="false">Chat</button>
         <button class="tab" data-tab="events" role="tab" aria-selected="false">Events</button>
       </nav>
 
       <main>
-        <section id="cours" class="panel active" role="tabpanel">
+
+        <!-- TABLEAU DE BORD -->
+        <section id="dashboard" class="panel active" role="tabpanel">
+
+          <!-- Stats résumé -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-number" id="stat-courses">0</div>
+              <div class="stat-label">Cours actifs</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="stat-coaches">0</div>
+              <div class="stat-label">Coachs</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" id="stat-participants">0</div>
+              <div class="stat-label">Inscriptions</div>
+            </div>
+          </div>
+
+          <!-- Participants par cours -->
+          <article class="card">
+            <h2>Participants par cours</h2>
+            <ul id="dash-courses" class="list"></ul>
+          </article>
+
+          <!-- Coachs disponibles -->
+          <article class="card">
+            <h2>Coachs disponibles</h2>
+            <ul id="dash-coaches" class="list"></ul>
+          </article>
+
+          <!-- Events -->
+          <article class="card">
+            <h2>Inscrits par event</h2>
+            <ul id="dash-events" class="list"></ul>
+          </article>
+
+        </section>
+
+        <!-- COURS -->
+        <section id="cours" class="panel" role="tabpanel">
           <article class="card">
             <h2>Nouveau cours</h2>
             <form id="course-form">
@@ -44,6 +86,22 @@
               <label>
                 Coach
                 <input type="text" id="course-coach" placeholder="Sophie M." required />
+              </label>
+              <label>
+                Discipline / Sport
+                <select id="course-discipline" required>
+                  <option value="">Choisir une discipline...</option>
+                  <option value="Running">Running</option>
+                  <option value="Yoga">Yoga</option>
+                  <option value="HIIT">HIIT</option>
+                  <option value="Pilates">Pilates</option>
+                  <option value="Mobilité">Mobilité</option>
+                  <option value="Natation">Natation</option>
+                  <option value="Cyclisme">Cyclisme</option>
+                  <option value="Méditation">Méditation</option>
+                  <option value="Force">Force</option>
+                  <option value="Autre">Autre</option>
+                </select>
               </label>
               <label>
                 Salle
@@ -63,6 +121,7 @@
           </article>
         </section>
 
+        <!-- CHAT -->
         <section id="chat" class="panel" role="tabpanel">
           <article class="card">
             <h2>Chat running</h2>
@@ -81,6 +140,7 @@
           </article>
         </section>
 
+        <!-- EVENTS -->
         <section id="events" class="panel" role="tabpanel">
           <div class="grid-two">
             <article class="card">
@@ -108,10 +168,10 @@
             </article>
           </div>
         </section>
-      </main>
 
+      </main>
     </div>
 
-    <script src="./script.js"></script>
+    <script src="./script.js?v=2"></script>
   </body>
 </html>
