@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cloub — utilisateur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+
+    <nav class="top-nav">
+      <a class="wordmark" href="./index.html">
+        <span class="wordmark-dot"></span>
+        cloub
+      </a>
+      <span class="nav-badge">Utilisateur</span>
+    </nav>
+
+    <div class="app">
+
+      <header class="page-header">
+        <h1>Bonjour 👋</h1>
+        <p>Inscription aux cours · chat running · events</p>
+      </header>
+
+      <nav class="tabs" role="tablist" aria-label="Navigation principale">
+        <button class="tab active" data-tab="cours" role="tab" aria-selected="true">Cours</button>
+        <button class="tab" data-tab="chat" role="tab" aria-selected="false">Chat</button>
+        <button class="tab" data-tab="events" role="tab" aria-selected="false">Events</button>
+      </nav>
+
+      <main>
+        <section id="cours" class="panel active" role="tabpanel">
+          <article class="card">
+            <h2>S'inscrire à un cours</h2>
+            <form id="participant-form">
+              <label>
+                Nom du participant
+                <input type="text" id="participant-name" placeholder="Emma D." required />
+              </label>
+              <label>
+                Sélectionner un cours
+                <select id="participant-course" required></select>
+              </label>
+              <button type="submit">Confirmer l'inscription</button>
+            </form>
+          </article>
+
+          <article class="card">
+            <h2>Cours disponibles</h2>
+            <ul id="course-list" class="list"></ul>
+          </article>
+        </section>
+
+        <section id="chat" class="panel" role="tabpanel">
+          <article class="card">
+            <h2>Chat running</h2>
+            <div id="chat-messages" class="chat-box"></div>
+            <form id="chat-form" class="chat-form">
+              <label>
+                Prénom
+                <input type="text" id="chat-author" placeholder="Emma" required />
+              </label>
+              <label>
+                Message
+                <input type="text" id="chat-input" placeholder="Run mardi 12h ?" required />
+              </label>
+              <button type="submit">Envoyer</button>
+            </form>
+          </article>
+        </section>
+
+        <section id="events" class="panel" role="tabpanel">
+          <div class="grid-two">
+            <article class="card">
+              <h2>Proposer un event</h2>
+              <form id="event-form">
+                <label>
+                  Titre
+                  <input type="text" id="event-title" placeholder="Challenge 5 km" required />
+                </label>
+                <label>
+                  Lieu
+                  <input type="text" id="event-location" placeholder="Parc de la Planta" required />
+                </label>
+                <label>
+                  Date
+                  <input type="date" id="event-date" required />
+                </label>
+                <button type="submit">Ajouter l'event</button>
+              </form>
+            </article>
+
+            <article class="card">
+              <h2>Planning des events</h2>
+              <ul id="event-list" class="list"></ul>
+            </article>
+          </div>
+        </section>
+      </main>
+
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
