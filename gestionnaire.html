@@ -3,27 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cloub — gestionnaire</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css" />
+    <title>Cloub — gestionnaire</title>
+    <link rel="icon" href="./assets/logo-noir.svg" />
+    <link rel="stylesheet" href="./styles.css?v=4" />
   </head>
   <body>
 
     <nav class="top-nav">
-      <a class="wordmark" href="./index.html">
-        <span class="wordmark-dot"></span>
-        cloub
-      </a>
+      <a class="wordmark" href="./index.html"><img src="./assets/logo-blanc.svg" alt="Cloub" /></a>
       <span class="nav-badge">Gestionnaire</span>
     </nav>
 
     <div class="app">
 
-      <header class="page-header">
+      <header class="page-banner banner-admin">
+        <img class="banner-sticker" src="./assets/stickers/yoga.png" alt="" />
+        <div class="bubbles"><span class="bubble">Espace RH</span></div>
         <h1>Tableau de bord</h1>
-        <p>Vue d'ensemble · cours · events</p>
+        <p>Cours, coachs, inscriptions et events — tout le mouvement de l'entreprise en un coup d'œil.</p>
       </header>
 
       <nav class="tabs" role="tablist" aria-label="Navigation principale">
@@ -124,7 +121,11 @@
         <!-- CHAT -->
         <section id="chat" class="panel" role="tabpanel">
           <article class="card">
-            <h2>Chat running</h2>
+            <h2><span id="chat-title">Chat running</span></h2>
+            <div class="channel-switch" role="tablist" aria-label="Canaux du chat">
+              <button type="button" class="channel active" data-channel="running">Running</button>
+              <button type="button" class="channel" data-channel="natation">Natation</button>
+            </div>
             <div id="chat-messages" class="chat-box"></div>
             <form id="chat-form" class="chat-form">
               <label>
@@ -148,7 +149,15 @@
               <form id="event-form">
                 <label>
                   Titre
-                  <input type="text" id="event-title" placeholder="Challenge 5 km" required />
+                  <input type="text" id="event-title" placeholder="Sierre-Zinal" required />
+                </label>
+                <label>
+                  Type
+                  <select id="event-type" required>
+                    <option value="">Choisir un type...</option>
+                    <option value="Cloub Moments">Cloub Moments (événement d'équipe)</option>
+                    <option value="Cloub Challenge">Cloub Challenge (objectif course)</option>
+                  </select>
                 </label>
                 <label>
                   Lieu
@@ -172,6 +181,6 @@
       </main>
     </div>
 
-    <script src="./script.js?v=2"></script>
+    <script src="./script.js?v=4"></script>
   </body>
 </html>

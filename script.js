@@ -8,7 +8,7 @@ const state = {
   courses: load(STORAGE_KEYS.courses, [
     {
       id: crypto.randomUUID(),
-      title: "Mobilite du midi",
+      title: "Mobilité du midi",
       coach: "Coach Ana",
       discipline: "Mobilité",
       room: "Salle A",
@@ -17,27 +17,59 @@ const state = {
     },
     {
       id: crypto.randomUUID(),
-      title: "Running matinal",
-      coach: "Coach Théo",
-      discipline: "Running",
-      room: "Extérieur",
+      title: "Renforcement postural",
+      coach: "Coach Bruno",
+      discipline: "Force",
+      room: "Salle B1",
       datetime: new Date().toISOString().slice(0, 16),
       participants: ["Emma", "Marc", "Léa"],
     },
   ]),
   events: load(STORAGE_KEYS.events, [
-    { id: crypto.randomUUID(), title: "Run collectif", location: "Sion", date: "2026-06-15", participants: [] },
-    { id: crypto.randomUUID(), title: "Défi escalade", location: "Halle d'escalade", date: "2026-07-05", participants: [] },
+    { id: crypto.randomUUID(), title: "Journée cohésion d'équipe", type: "Cloub Moments", location: "Sion", date: "2026-06-20", participants: [] },
+    { id: crypto.randomUUID(), title: "Sierre-Zinal", type: "Cloub Challenge", location: "Sierre → Zinal", date: "2026-08-09", participants: [] },
+    { id: crypto.randomUUID(), title: "Hyrox Genève", type: "Cloub Challenge", location: "Genève", date: "2026-11-14", participants: [] },
+    { id: crypto.randomUUID(), title: "Course de l'Escalade", type: "Cloub Challenge", location: "Genève", date: "2026-12-01", participants: [] },
+    { id: crypto.randomUUID(), title: "Triathlon du Valais", type: "Cloub Challenge", location: "Sion", date: "2026-06-27", participants: [] },
   ]),
   chatMessages: load(STORAGE_KEYS.chat, [
     {
       id: crypto.randomUUID(),
+      channel: "running",
       author: "Lea",
-      content: "Qui est partant pour un run ce soir a 18h?",
+      content: "Qui est partant pour un run ce soir à 18h ?",
+      timestamp: new Date().toISOString(),
+    },
+    {
+      id: crypto.randomUUID(),
+      channel: "running",
+      author: "Marc",
+      content: "Moi ! Départ devant l'entrée ?",
+      timestamp: new Date().toISOString(),
+    },
+    {
+      id: crypto.randomUUID(),
+      channel: "running",
+      author: "Lea",
+      content: "Parfait, 5 km tranquille le long du Rhône 🏃",
       timestamp: new Date().toISOString(),
     },
   ]),
 };
+
+// Canaux du chat — les anciens messages sans canal restent dans "running"
+const CHAT_CHANNELS = {
+  running: { label: "running", placeholder: "Run mardi 12h ?" },
+  natation: { label: "natation", placeholder: "Piscine jeudi midi ?" },
+};
+let currentChannel = "running";
+
+if (!state.chatMessages.some((m) => m.channel === "natation")) {
+  state.chatMessages.push(
+    { id: crypto.randomUUID(), channel: "natation", author: "Sophie", content: "Quelqu'un pour nager à la piscine de Sion jeudi midi ?", timestamp: new Date().toISOString() },
+    { id: crypto.randomUUID(), channel: "natation", author: "Paul", content: "Partant ! 1 km crawl tranquille 🏊", timestamp: new Date().toISOString() },
+  );
+}
 
 // ── TAB NAVIGATION ────────────────────────────────────
 
@@ -113,9 +145,11 @@ if (eventForm) {
   eventForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const title = document.getElementById("event-title").value.trim();
+    const typeSelect = document.getElementById("event-type");
+    const type = typeSelect ? typeSelect.value : "";
     const location = document.getElementById("event-location").value.trim();
     const date = document.getElementById("event-date").value;
-    state.events.unshift({ id: crypto.randomUUID(), title, location, date, participants: [] });
+    state.events.unshift({ id: crypto.randomUUID(), title, type, location, date, participants: [] });
     eventForm.reset();
     persist();
     renderAll();
@@ -130,6 +164,7 @@ if (chatForm) {
     if (!author || !content) return;
     state.chatMessages.push({
       id: crypto.randomUUID(),
+      channel: currentChannel,
       author,
       content,
       timestamp: new Date().toISOString(),
@@ -184,9 +219,10 @@ function renderEvents() {
   }
 
   state.events.forEach((event) => {
+    const typeTag = event.type ? `<span class="badge badge-outline">${escapeHtml(event.type)}</span> ` : "";
     const li = document.createElement("li");
     li.innerHTML = `
-      <strong>${escapeHtml(event.title)}</strong><br />
+      ${typeTag}<strong>${escapeHtml(event.title)}</strong><br />
       Lieu : ${escapeHtml(event.location)}<br />
       Date : ${formatDate(event.date)}
     `;
@@ -199,7 +235,9 @@ function renderEvents() {
 function renderChat() {
   if (!chatMessages) return;
   chatMessages.innerHTML = "";
-  state.chatMessages.forEach((msg) => {
+  state.chatMessages
+    .filter((msg) => (msg.channel || "running") === currentChannel)
+    .forEach((msg) => {
     const el = document.createElement("div");
     el.className = "chat-message";
     el.innerHTML = `<strong>${escapeHtml(msg.author)}</strong><small> — ${formatDateTime(msg.timestamp)}</small><div>${escapeHtml(msg.content)}</div>`;
@@ -207,6 +245,19 @@ function renderChat() {
   });
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
+
+// ── CHAT : CHANGEMENT DE CANAL ────────────────────────
+
+document.querySelectorAll(".channel").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    currentChannel = btn.dataset.channel;
+    document.querySelectorAll(".channel").forEach((b) => b.classList.toggle("active", b === btn));
+    const channel = CHAT_CHANNELS[currentChannel];
+    document.getElementById("chat-title").textContent = `Chat ${channel.label}`;
+    document.getElementById("chat-input").placeholder = channel.placeholder;
+    renderChat();
+  });
+});
 
 // ── RENDER : DASHBOARD ────────────────────────────────
 
@@ -244,7 +295,7 @@ function renderDashboard() {
             <strong>${escapeHtml(c.title)}${disc}</strong>
             <span class="badge badge-solid">${c.participants.length} ${label}</span>
           </div>
-          <div class="dash-sub">Coach ${escapeHtml(c.coach)} &nbsp;·&nbsp; ${formatDateTime(c.datetime)}</div>
+          <div class="dash-sub">${escapeHtml(c.coach)} &nbsp;·&nbsp; ${formatDateTime(c.datetime)}</div>
           <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
         </li>`;
       })
@@ -287,9 +338,10 @@ function renderDashboard() {
       .map((e) => {
         const count = (e.participants || []).length;
         const label = count === 1 ? "inscrit" : "inscrits";
+        const typeTag = e.type ? `<span class="badge badge-outline">${escapeHtml(e.type)}</span> ` : "";
         return `<li>
           <div class="dash-row">
-            <strong>${escapeHtml(e.title)}</strong>
+            <strong>${typeTag}${escapeHtml(e.title)}</strong>
             <span class="badge badge-solid">${count} ${label}</span>
           </div>
           <div class="dash-sub">${escapeHtml(e.location)} &nbsp;·&nbsp; ${formatDate(e.date)}</div>

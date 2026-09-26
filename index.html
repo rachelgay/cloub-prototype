@@ -3,46 +3,70 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cloub — move your people</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css" />
+    <title>Cloub — move your people</title>
+    <link rel="icon" href="./assets/logo-noir.svg" />
+    <link rel="stylesheet" href="./styles.css?v=4" />
   </head>
   <body>
 
     <nav class="top-nav">
-      <a class="wordmark" href="./index.html">
-        <span class="wordmark-dot"></span>
-        cloub
-      </a>
+      <a class="wordmark" href="./index.html"><img src="./assets/logo-blanc.svg" alt="Cloub" /></a>
+      <span class="nav-badge">Prototype v1</span>
     </nav>
 
     <div class="app">
 
-      <div class="hero">
-        <p class="hero-tagline-pre">prototype v1</p>
-        <h1 class="hero-wordmark">cloub</h1>
-        <p class="hero-tagline">move your people</p>
-      </div>
+      <section class="hero">
+        <div class="hero-top">
+          <span>Sport au travail</span>
+        </div>
+
+        <img class="hero-sticker" src="./assets/stickers/run.png" alt="" />
+
+        <img class="hero-logo" src="./assets/logo-blanc.svg" alt="Cloub" />
+        <p class="hero-slogan"><span class="bubble-dash"></span>You don't need a chief happiness officer</p>
+        <p class="hero-slogan-sub">You just need Cloub.</p>
+
+        <div class="bubbles">
+          <span class="bubble">Coachs locaux</span>
+          <span class="bubble">Convivialité</span>
+          <span class="bubble">Tous niveaux</span>
+          <span class="bubble bubble-fill">Move your people</span>
+        </div>
+      </section>
 
       <div class="selector-grid">
 
-        <article class="selector-card">
-          <div class="role-icon">🏃</div>
-          <h2>Version Utilisateur</h2>
-          <p>Inscris-toi aux cours, organise des activités et suis les events qui bougent de ton entreprise.</p>
-          <a class="link-button" href="./utilisateur.html">Ouvrir →</a>
-        </article>
+        <a class="selector-card is-blue" href="./utilisateur.html">
+          <div class="selector-photo" style="background-image:url('./assets/img/utilisateur.jpg')">
+            <img src="./assets/stickers/yoga.png" alt="" />
+          </div>
+          <div class="selector-body">
+            <span class="kicker">Collaborateur·rice</span>
+            <h2>Version utilisateur</h2>
+            <p>Inscris-toi aux cours, organise des activités et suis les events qui font bouger ton entreprise.</p>
+            <span class="link-button selector-cta">Ouvrir →</span>
+          </div>
+        </a>
 
-        <article class="selector-card">
-          <div class="role-icon">📋</div>
-          <h2>Version Gestionnaire</h2>
-          <p>Crée et pilote les cours, suis les inscriptions et gère le planning événementiel RH/Coach.</p>
-          <a class="link-button" href="./gestionnaire.html">Ouvrir →</a>
-        </article>
+        <a class="selector-card is-beige" href="./gestionnaire.html">
+          <div class="selector-photo" style="background-image:url('./assets/img/gestionnaire.jpg')">
+            <img src="./assets/stickers/gourde.png" alt="" />
+          </div>
+          <div class="selector-body">
+            <span class="kicker">RH</span>
+            <h2>Version gestionnaire</h2>
+            <p>Crée et pilote les cours, suis les inscriptions et gère le planning des events.</p>
+            <span class="link-button selector-cta">Ouvrir →</span>
+          </div>
+        </a>
 
       </div>
+
+      <footer class="foot">
+        <span>Cloub</span>
+        <span>Faire bouger l'entreprise, simplement.</span>
+      </footer>
 
     </div>
 
